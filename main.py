@@ -37,7 +37,36 @@ from sklearn.metrics import confusion_matrix
 cm=confusion_matrix(y_test,y_pred)
 # print(cm)
 
-from sklearn.metrics import classification_report
-classification_report(y_test,y_pred)
+from sklearn.metrics import ConfusionMatrixDisplay
+ConfusionMatrixDisplay(cm).plot()
+plt.show()
 
+probs=logmodel.predict_proba(x_test)
+
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Get probability scores for the positive class
+probs = logmodel.predict_proba(x_test)
+
+# Calculate ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, probs[:, 1])
+
+# Calculate AUC score
+auc_score = roc_auc_score(y_test, probs[:, 1])
+
+print("FPR:", fpr)
+
+
+#draw roc curve
+plt.figure()
+plt.plot(fpr,tpr)
+plt.show()
+#area_under_curve
+auc=roc_auc_score(y_test,y_pred)
+print(auc)
+
+#classification 
+
+#check the acuuracy
+print(logmodel.score(x_test,y_test))
 
