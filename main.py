@@ -69,4 +69,3 @@ print(auc)
 
 #check the acuuracy
 print(logmodel.score(x_test,y_test))
-
